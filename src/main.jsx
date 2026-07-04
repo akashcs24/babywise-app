@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 function initClarity() {
-  const projectId = import.meta.env.VITE_CLARITY_PROJECT_ID
+  const projectId = 'xh37pk6whc'
   if (!projectId || typeof window === 'undefined' || typeof document === 'undefined') return
   if (document.getElementById('ms-clarity-script')) return
 
