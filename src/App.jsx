@@ -188,7 +188,36 @@ function scoreToTier(total) {
   return 'urgent'
 }
 
+function getResultKey(total) {
+  // Perfect pattern across all questions: show dedicated on-track framing.
+  if (total === 0) return 'allGood'
+  return scoreToTier(total)
+}
+
 const resultCopy = {
+  allGood: {
+    headline: 'Great signs right now. Avyan appears on track.',
+    meaning:
+      'Your responses show strong, consistent progress across speech, connection, and play. This is an encouraging snapshot, not a final label. Keep nurturing these everyday habits to support continued growth.',
+    actions: [
+      {
+        title: 'Protect daily face-to-face time',
+        body: 'Keep two short moments each day for play, songs, and turn-taking. Consistency helps maintain these strengths.',
+      },
+      {
+        title: 'Keep language-rich routines',
+        body: 'Continue naming actions, feelings, and objects during meals and play so communication keeps expanding naturally.',
+      },
+      {
+        title: 'Recheck gently after a few weeks',
+        body: 'Repeat this check in 8 to 12 weeks, or sooner if anything feels different. Early noticing always helps.',
+      },
+    ],
+    cta: 'Continue growth activities',
+    link: 'Set a reminder to reassess in 8 to 12 weeks',
+    empathy: 'You noticed. You nurtured. This foundation matters.',
+    empathyTitleSentences: 2,
+  },
   early: {
     headline: 'Mostly on track, with a few things worth watching.',
     meaning:
@@ -210,6 +239,7 @@ const resultCopy = {
     cta: 'Talk to a paediatric specialist',
     link: 'Find a child development centre near me',
     empathy: 'You noticed early. That gives Avyan a strong start.',
+    empathyTitleSentences: 1,
   },
   clear: {
     headline: 'Some clear patterns worth acting on gently.',
@@ -232,6 +262,7 @@ const resultCopy = {
     cta: 'Talk to a paediatric specialist',
     link: 'Find a child development centre near me',
     empathy: 'You noticed. You acted. That is the most important thing you could have done for Avyan.',
+    empathyTitleSentences: 2,
   },
   urgent: {
     headline: 'These patterns suggest getting support soon.',
@@ -255,6 +286,7 @@ const resultCopy = {
     cta: 'Talk to a paediatric specialist this week',
     link: 'Find a child development centre near me',
     empathy: 'You noticed early. Acting now is the right next step for Avyan.',
+    empathyTitleSentences: 1,
   },
 }
 
@@ -278,14 +310,14 @@ function loadUiConfig() {
   }
 }
 
-function splitEmpathy(empathyText) {
+function splitEmpathy(empathyText, titleSentenceCount = 2) {
   const parts = empathyText
     .split('. ')
     .map((part) => part.trim().replace(/\.$/, ''))
     .filter(Boolean)
 
-  const titleParts = parts.slice(0, 2)
-  const bodyParts = parts.slice(2)
+  const titleParts = parts.slice(0, titleSentenceCount)
+  const bodyParts = parts.slice(titleSentenceCount)
 
   return {
     title: titleParts.length ? `${titleParts.join('. ')}.` : '',
@@ -387,10 +419,10 @@ function App() {
     }, 0)
   }, [answers])
 
-  const activeTier = manualResultTier ?? scoreToTier(totalScore)
+  const activeTier = manualResultTier ?? getResultKey(totalScore)
   const activeResult = resultCopy[activeTier]
   const activeLoaderState = loaderStates[loaderStep]
-  const empathyCopy = splitEmpathy(activeResult.empathy)
+  const empathyCopy = splitEmpathy(activeResult.empathy, activeResult.empathyTitleSentences ?? 2)
   const microEnabled = uiConfig.microEnabled
 
   const resumeAvailable = answeredCount > 0 && screen === 'home' && answeredCount < 15
@@ -725,29 +757,33 @@ function App() {
 
             <p className={`center-note ${microEnabled ? 'reveal r2' : ''}`}>This is pattern mapping, not a diagnosis</p>
 
-            <h3 className={microEnabled ? 'reveal r3' : ''}>3 things to try this week</h3>
-            <div className={`action-list ${microEnabled ? 'reveal r4' : ''}`}>
-              {activeResult.actions.map((item, idx) => (
-                <article key={item.title} className={`action-card ${microEnabled ? `reveal r${5 + idx}` : ''}`}>
-                  <strong>
-                    <img src={actionNumberIcons[idx] ?? ASSETS.one} alt="" />
-                    <span>{item.title}</span>
-                  </strong>
-                  <p>{item.body}</p>
-                </article>
-              ))}
-            </div>
+            {activeTier !== 'allGood' && (
+              <>
+                <h3 className={microEnabled ? 'reveal r3' : ''}>3 things to try this week</h3>
+                <div className={`action-list ${microEnabled ? 'reveal r4' : ''}`}>
+                  {activeResult.actions.map((item, idx) => (
+                    <article key={item.title} className={`action-card ${microEnabled ? `reveal r${5 + idx}` : ''}`}>
+                      <strong>
+                        <img src={actionNumberIcons[idx] ?? ASSETS.one} alt="" />
+                        <span>{item.title}</span>
+                      </strong>
+                      <p>{item.body}</p>
+                    </article>
+                  ))}
+                </div>
 
-            <div className={`result-actions ${microEnabled ? 'reveal r8' : ''}`}>
-              <button className={`secondary ${microEnabled ? 'cta-breathe' : ''}`}>
-                <img src={ASSETS.doctor} alt="" />
-                {activeResult.cta}
-              </button>
-              <button className="inline-link">
-                <img src={ASSETS.location} alt="" />
-                {activeResult.link}
-              </button>
-            </div>
+                <div className={`result-actions ${microEnabled ? 'reveal r8' : ''}`}>
+                  <button className={`secondary ${microEnabled ? 'cta-breathe' : ''}`}>
+                    <img src={ASSETS.doctor} alt="" />
+                    {activeResult.cta}
+                  </button>
+                  <button className="inline-link">
+                    <img src={ASSETS.location} alt="" />
+                    {activeResult.link}
+                  </button>
+                </div>
+              </>
+            )}
 
             <article className="pro-card" onClick={() => setShowDeepDive(true)}>
               <div>
