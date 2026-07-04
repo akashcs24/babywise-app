@@ -97,7 +97,7 @@ body {
 }
 
 .brand-lockup.small {
-  margin-top: 6px;
+  margin-top: 0;
   margin-bottom: 4px;
 }
 
@@ -474,7 +474,7 @@ body {
 }
 
 .top-back {
-  margin-top: 26px;
+  margin-top: 0;
   margin-left: -8px;
   color: var(--primary);
 }
@@ -584,7 +584,7 @@ body {
 .question-appbar {
   margin: 0 -24px;
   background: var(--bg);
-  padding-top: 22px;
+  padding-top: 0;
 }
 
 .question-head {
