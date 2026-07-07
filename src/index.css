@@ -1275,8 +1275,9 @@ body {
   }
 
   .screen.result {
-    height: auto;
+    height: 100dvh;
     min-height: 100dvh;
+    overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
