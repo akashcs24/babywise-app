@@ -695,45 +695,47 @@ function App() {
 
         {screen === 'loader' && (
           <section className="screen loader fade-in">
-            <div className="loader-progress" aria-hidden="true">
-              {[0, 1, 2].map((step) => (
-                <div key={step} className="loader-progress-item">
-                  <div
-                    className={[
-                      'loader-node',
-                      step < loaderStep || loaderDone ? 'is-complete' : '',
-                      step === loaderStep && !loaderDone ? 'is-active' : '',
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    {step < loaderStep || loaderDone ? (
-                      <img src={ASSETS.tick} alt="" />
-                    ) : step === loaderStep && !loaderDone ? (
-                      <img className="loader-node-spinner" src={ASSETS.loader} alt="" />
-                    ) : null}
-                  </div>
-                  {step < 2 && (
-                    <div className="loader-connector">
-                      <div
-                        className="loader-connector-fill"
-                        style={{
-                          width: `${step < loaderStep || (step === loaderStep && loaderMoving) ? 100 : 0}%`,
-                        }}
-                      />
+            <div className="loader-main">
+              <div className="loader-progress" aria-hidden="true">
+                {[0, 1, 2].map((step) => (
+                  <div key={step} className="loader-progress-item">
+                    <div
+                      className={[
+                        'loader-node',
+                        step < loaderStep || loaderDone ? 'is-complete' : '',
+                        step === loaderStep && !loaderDone ? 'is-active' : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                    >
+                      {step < loaderStep || loaderDone ? (
+                        <img src={ASSETS.tick} alt="" />
+                      ) : step === loaderStep && !loaderDone ? (
+                        <img className="loader-node-spinner" src={ASSETS.loader} alt="" />
+                      ) : null}
                     </div>
-                  )}
-                </div>
-              ))}
+                    {step < 2 && (
+                      <div className="loader-connector">
+                        <div
+                          className="loader-connector-fill"
+                          style={{
+                            width: `${step < loaderStep || (step === loaderStep && loaderMoving) ? 100 : 0}%`,
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <h2 key={`loader-title-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
+                {activeLoaderState.title}
+              </h2>
+
+              <p key={`loader-body-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
+                {activeLoaderState.body}
+              </p>
             </div>
-
-            <h2 key={`loader-title-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
-              {activeLoaderState.title}
-            </h2>
-
-            <p key={`loader-body-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
-              {activeLoaderState.body}
-            </p>
             <p className="footer-disclaimer">This is pattern mapping, not a diagnosis</p>
           </section>
         )}
