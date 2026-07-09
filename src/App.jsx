@@ -744,45 +744,47 @@ function App() {
         {screen === 'loader' && (
           <section className="screen loader fade-in">
             <div className="loader-main">
-              <div className="loader-progress" aria-hidden="true">
-                {[0, 1, 2].map((step) => (
-                  <div key={step} className="loader-progress-item">
-                    <div
-                      className={[
-                        'loader-node',
-                        step < loaderStep || loaderDone ? 'is-complete' : '',
-                        step === loaderStep && !loaderDone ? 'is-active' : '',
-                      ]
-                        .filter(Boolean)
-                        .join(' ')}
-                    >
-                      {step < loaderStep || loaderDone ? (
-                        <img src={ASSETS.tick} alt="" />
-                      ) : step === loaderStep && !loaderDone ? (
-                        <img className="loader-node-spinner" src={ASSETS.loader} alt="" />
-                      ) : null}
-                    </div>
-                    {step < 2 && (
-                      <div className="loader-connector">
-                        <div
-                          className="loader-connector-fill"
-                          style={{
-                            width: `${step < loaderStep || (step === loaderStep && loaderMoving) ? 100 : 0}%`,
-                          }}
-                        />
+              <div className="loader-copy-block">
+                <div className="loader-progress" aria-hidden="true">
+                  {[0, 1, 2].map((step) => (
+                    <div key={step} className="loader-progress-item">
+                      <div
+                        className={[
+                          'loader-node',
+                          step < loaderStep || loaderDone ? 'is-complete' : '',
+                          step === loaderStep && !loaderDone ? 'is-active' : '',
+                        ]
+                          .filter(Boolean)
+                          .join(' ')}
+                      >
+                        {step < loaderStep || loaderDone ? (
+                          <img src={ASSETS.tick} alt="" />
+                        ) : step === loaderStep && !loaderDone ? (
+                          <img className="loader-node-spinner" src={ASSETS.loader} alt="" />
+                        ) : null}
                       </div>
-                    )}
-                  </div>
-                ))}
+                      {step < 2 && (
+                        <div className="loader-connector">
+                          <div
+                            className="loader-connector-fill"
+                            style={{
+                              width: `${step < loaderStep || (step === loaderStep && loaderMoving) ? 100 : 0}%`,
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <h2 key={`loader-title-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
+                  {activeLoaderState.title}
+                </h2>
+
+                <p key={`loader-body-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
+                  {activeLoaderState.body}
+                </p>
               </div>
-
-              <h2 key={`loader-title-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
-                {activeLoaderState.title}
-              </h2>
-
-              <p key={`loader-body-${loaderStep}`} className={microEnabled ? 'loader-copy-enter' : ''}>
-                {activeLoaderState.body}
-              </p>
             </div>
             <p className="footer-disclaimer">This is pattern mapping, not a diagnosis</p>
           </section>
@@ -828,11 +830,11 @@ function App() {
                         </ul>
                       </div>
                       <button className="play-video-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
-                            d="M18.8906 12.846C18.5371 14.189 16.8667 15.138 13.5257 17.0361C10.296 18.8709 8.6812 19.7884 7.37983 19.4196C6.8418 19.2671 6.35159 18.9776 5.95624 18.5787C5 17.6139 5 15.7426 5 12C5 8.2574 5 6.3861 5.95624 5.42132C6.35159 5.02245 6.8418 4.73288 7.37983 4.58042C8.6812 4.21165 10.296 5.12907 13.5257 6.96393C16.8667 8.86197 18.5371 9.811 18.8906 11.154C19.0365 11.7084 19.0365 12.2916 18.8906 12.846Z"
+                            d="M14.6406 9.096C14.2871 10.439 12.6167 11.388 9.2757 13.2861C6.046 15.1209 4.4312 16.0384 3.12983 15.6696C2.5918 15.5171 2.10159 15.2276 1.70624 14.8287C0.75 13.8639 0.75 11.9926 0.75 8.25C0.75 4.5074 0.75 2.6361 1.70624 1.67132C2.10159 1.27245 2.5918 0.98288 3.12983 0.83042C4.4312 0.46165 6.046 1.37907 9.2757 3.21393C12.6167 5.11197 14.2871 6.061 14.6406 7.404C14.7865 7.9584 14.7865 8.5416 14.6406 9.096Z"
                             stroke="currentColor"
-                            strokeWidth="1.5"
+                            strokeWidth={1.5}
                             strokeLinejoin="round"
                           />
                         </svg>

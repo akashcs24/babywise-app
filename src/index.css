@@ -706,18 +706,27 @@ body {
 
 .loader {
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   text-align: center;
   padding-top: 0;
   gap: 0;
 }
 
 .loader-main {
-  margin-top: auto;
-  margin-bottom: auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.loader-copy-block {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .loader-progress {
@@ -782,18 +791,20 @@ body {
 }
 
 .loader h2 {
-  margin: 24px 0 0;
+  margin: 0;
   font-size: 24px;
   line-height: 36px;
+  min-height: 36px;
 }
 
 .loader p {
-  margin: 16px 0 0;
+  margin: 0;
   color: var(--muted);
   font-size: 16px;
   line-height: 24px;
   font-weight: 500;
   max-width: 364px;
+  min-height: 48px;
 }
 
 .loader .footer-disclaimer {
