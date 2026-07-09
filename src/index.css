@@ -804,6 +804,7 @@ body {
 
 .result {
   gap: 14px;
+  padding-bottom: 20px;
 }
 
 .report-card {
@@ -825,6 +826,10 @@ body {
   margin: -12px 0 0;
 }
 
+.disclaimer-top {
+  margin: 0 0 -4px;
+}
+
 .report-chip {
   display: inline-flex;
   justify-content: flex-start;
@@ -832,8 +837,12 @@ body {
   gap: 8px;
   width: 100%;
   text-align: left;
+  color: #5a6e68;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .report-chip img {
@@ -842,26 +851,53 @@ body {
 }
 
 .report-card h2 {
+  color: #183226;
+  font-family: 'Lora', serif;
   font-size: 24px;
-  line-height: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
 }
 
 .report-card strong {
+  color: #183226;
+  font-family: 'Figtree', sans-serif;
   font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .report-card p {
   margin: 0;
-  color: #435954;
-  font-size: 13px;
-  line-height: 1.45;
+  color: #183226;
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
 }
 
 .result h3 {
-  margin: 8px 0 0;
+  margin: 0;
   font-family: 'Lora', serif;
-  font-size: 16px;
-  line-height: 36px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--text);
+  text-align: center;
+}
+
+.section-helper {
+  margin: 8px 0 0;
+  color: #5a6e68;
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
 }
 
 .action-list {
@@ -873,18 +909,29 @@ body {
   background: #ffffff;
   border-radius: 16px;
   padding: 12px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
 }
 
+.action-card-content {
+  display: grid;
+  gap: 10px;
+}
+
 .action-card strong {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 14px;
+  gap: 10px;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: #183226;
 }
 
 .action-card strong img {
@@ -893,51 +940,143 @@ body {
   flex: 0 0 auto;
 }
 
+.action-card strong span {
+  font-family: 'Figtree', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 .action-card p {
   margin: 0;
   color: #445b56;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.35;
 }
 
-.result-actions {
+.action-card-points {
+  margin: 0;
+  padding-left: 18px;
   display: grid;
-  gap: 16px;
+  gap: 6px;
+  color: #183226;
+  font-family: 'Figtree', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-.inline-link {
+.action-card-points li {
+  margin: 0;
+}
+
+.play-video-btn {
+  align-self: flex-end;
   border: 0;
   background: transparent;
-  color: var(--primary);
-  justify-content: center;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 22px;
+  color: #ff5731;
   padding: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  height: 54px;
-  width: 100%;
-  border-radius: 13px;
-}
-
-.result .secondary {
-  height: 54px;
+  margin-top: 2px;
+  font-family: 'Figtree', sans-serif;
   font-size: 16px;
+  font-style: normal;
   font-weight: 800;
   line-height: 22px;
   display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 200ms ease;
+  white-space: nowrap;
+}
+
+.play-video-btn:active {
+  opacity: 0.7;
+}
+
+.play-video-btn svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.discovery-ctAs {
+  display: grid;
   gap: 10px;
 }
 
-.secondary img,
-.inline-link img {
-  width: 24px;
-  height: 24px;
+.discovery-cta {
+  border: 1px solid rgba(255, 87, 49, 0.78);
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(24, 50, 38, 0.02);
+  transition: background-color 200ms ease;
+}
+
+.discovery-cta:active {
+  background-color: #fff8f5;
+}
+
+.discovery-cta-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-self: start;
+  text-align: left;
+}
+
+.discovery-cta-content img {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  margin-top: 0;
+}
+
+.discovery-cta-content div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.discovery-cta-content strong {
+  display: block;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  color: #183226;
+  line-height: normal;
+}
+
+.discovery-cta-content small {
+  display: block;
+  color: #5a6e68;
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.discovery-cta .arrow {
+  display: inline-flex;
+  justify-self: end;
+}
+
+.discovery-cta .arrow img {
+  width: 6px;
+  height: 11px;
+  display: block;
 }
 
 .pro-card {
@@ -945,6 +1084,7 @@ body {
   color: #f5fbf8;
   border-radius: 16px;
   padding: 16px;
+  margin-top: 30px;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 12px;
@@ -1038,19 +1178,46 @@ body {
 }
 
 .empathy h3 {
-  margin: 2px 0;
-  font-size: 18px;
+  margin: 0;
+  color: #183226;
+  font-family: 'Lora', serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  text-align: center;
 }
 
 .empathy img {
   width: 26px;
   height: 26px;
+  margin: 0 auto;
 }
 
 .empathy p {
   margin: 0;
-  font-size: 14px;
-  color: #334943;
+  color: #183226;
+  font-family: 'Figtree', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
+.empathy {
+  margin-top: 30px;
+  justify-items: center;
+  text-align: center;
+}
+
+.result-footer {
+  margin: 70px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
 }
 
 .modal-backdrop {

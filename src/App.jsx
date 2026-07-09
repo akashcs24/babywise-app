@@ -20,9 +20,10 @@ const ASSETS = {
   cancel: '/assets/logout-square-02.svg',
   loader: '/assets/loader.svg',
   tick: '/assets/tick-03.svg',
-  report: '/assets/ai-magic.svg',
-  doctor: '/assets/doctor-01.svg',
-  location: '/assets/location-03.svg',
+  report: '/assets/report-ai.svg',
+  doctorCta: '/assets/cta-doctor.svg',
+  brainCta: '/assets/cta-brain.svg',
+  chevron: '/assets/cta-chevron.svg',
   heart: '/assets/heart.svg',
   one: '/assets/one-square.svg',
   two: '/assets/two-square.svg',
@@ -46,9 +47,9 @@ const loaderStates = [
 
 const actionNumberIcons = ['/assets/one-square.svg', '/assets/two-square.svg', '/assets/three-square.svg']
 
-const LOADER_HOLD_MS = 500
-const LOADER_TRAVEL_MS = 500
-const LOADER_FINAL_GAP_MS = 300
+const LOADER_HOLD_MS = 2000
+const LOADER_TRAVEL_MS = 300
+const LOADER_FINAL_GAP_MS = 2000
 
 const sectionMeta = [
   {
@@ -202,15 +203,27 @@ const resultCopy = {
     actions: [
       {
         title: 'Protect daily face-to-face time',
-        body: 'Keep two short moments each day for play, songs, and turn-taking. Consistency helps maintain these strengths.',
+        points: [
+          'Keep two short moments each day for play and turn-taking.',
+          'Use songs, peekaboo, or simple back-and-forth games.',
+          'Keep the rhythm steady so the habit stays familiar.',
+        ],
       },
       {
         title: 'Keep language-rich routines',
-        body: 'Continue naming actions, feelings, and objects during meals and play so communication keeps expanding naturally.',
+        points: [
+          'Name actions, feelings, and objects during meals and play.',
+          'Repeat the same words often so they feel familiar.',
+          'Use everyday moments to build more language naturally.',
+        ],
       },
       {
         title: 'Recheck gently after a few weeks',
-        body: 'Repeat this check in 8 to 12 weeks, or sooner if anything feels different. Early noticing always helps.',
+        points: [
+          'Repeat this check in 8 to 12 weeks.',
+          'Check sooner if anything feels different.',
+          'Early noticing always helps.',
+        ],
       },
     ],
     cta: 'Continue growth activities',
@@ -225,15 +238,27 @@ const resultCopy = {
     actions: [
       {
         title: 'Face-to-face play',
-        body: 'Set aside two short moments each day for face-to-face play. Try peekaboo, turn-taking, or simple songs. Aim for 10 minutes each time.',
+        points: [
+          'Set aside two short moments each day for face-to-face play.',
+          'Try peekaboo, turn-taking, or simple songs.',
+          'Aim for 10 minutes each time.',
+        ],
       },
       {
         title: 'Name what matters',
-        body: 'During meals or play, name objects, actions, and feelings out loud. Repetition helps connect words to everyday life.',
+        points: [
+          'During meals or play, name objects, actions, and feelings out loud.',
+          'Repeat the same words often.',
+          'That repetition helps connect words to everyday life.',
+        ],
       },
       {
         title: 'Keep screens in the background off',
-        body: 'Try keeping TVs and phones off during meals and playtime this week so attention stays on people, sounds, and interaction.',
+        points: [
+          'Keep TVs and phones off during meals and playtime this week.',
+          'Let attention stay on people, sounds, and interaction.',
+          'Reduce screen pull in the background.',
+        ],
       },
     ],
     cta: 'Talk to a paediatric specialist',
@@ -248,15 +273,27 @@ const resultCopy = {
     actions: [
       {
         title: 'Cognitive play',
-        body: 'Set aside two short daily moments for face-to-face play. Try peekaboo, turn-taking, or simple songs. Aim for 10 minutes each time.',
+        points: [
+          'Set aside two short daily moments for face-to-face play.',
+          'Try peekaboo, turn-taking, or simple songs.',
+          'Aim for 10 minutes each time.',
+        ],
       },
       {
         title: 'Word association',
-        body: 'Hold something he wants near your face and ask him to say “give me” or “mine.” Repeat 5 times a day. This links words to real wants.',
+        points: [
+          'Hold something he wants near your face.',
+          'Ask him to say “give me” or “mine.”',
+          'Repeat 5 times a day so words link to real wants.',
+        ],
       },
       {
         title: 'Task association',
-        body: 'Ask him to pick something up. Say it twice calmly. If he does not respond, gently guide his hand to the object while repeating the word slowly.',
+        points: [
+          'Ask him to pick something up.',
+          'Say it twice calmly.',
+          'If he does not respond, gently guide his hand while repeating the word slowly.',
+        ],
       },
     ],
     cta: 'Talk to a paediatric specialist',
@@ -272,15 +309,27 @@ const resultCopy = {
     actions: [
       {
         title: 'Reduce screens gradually',
-        body: 'Do not cut screens suddenly. Reduce screen time in small steps over the next few days so the change feels manageable for both of you.',
+        points: [
+          'Do not cut screens suddenly.',
+          'Reduce screen time in small steps over the next few days.',
+          'Keep the change manageable for both of you.',
+        ],
       },
       {
         title: 'Increase face-to-face moments',
-        body: 'Add two short daily moments of face-to-face play, songs, or turn-taking. Even 10 minutes at a time can help.',
+        points: [
+          'Add two short daily moments of face-to-face play, songs, or turn-taking.',
+          'Even 10 minutes at a time can help.',
+          'Keep the interaction warm and steady.',
+        ],
       },
       {
         title: 'Book expert support this week',
-        body: 'Plan one conversation with a paediatric specialist or child development centre this week and carry these observations with you.',
+        points: [
+          'Plan one conversation with a paediatric specialist this week.',
+          'Reach out to a child development centre if that feels easier.',
+          'Carry these observations with you.',
+        ],
       },
     ],
     cta: 'Talk to a paediatric specialist this week',
@@ -324,7 +373,6 @@ function splitEmpathy(empathyText, titleSentenceCount = 2) {
     body: bodyParts.length ? `${bodyParts.join('. ')}.` : '',
   }
 }
-
 function App() {
   const persisted = loadState()
   const uiConfig = loadUiConfig()
@@ -343,7 +391,7 @@ function App() {
   const [showDeepDive, setShowDeepDive] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setScreen('home'), 2100)
+    const timer = setTimeout(() => setScreen('home'), 4100)
     return () => clearTimeout(timer)
   }, [])
 
@@ -515,7 +563,7 @@ function App() {
             <div className="brand-lockup">
               <img className="brand-logo" src={ASSETS.logo} alt="Babywise AI" />
             </div>
-            <p>Your trusted child development companion</p>
+            <p>Clarity when it matters most</p>
           </section>
         )}
 
@@ -746,42 +794,78 @@ function App() {
               <img className="brand-logo" src={ASSETS.logo} alt="Babywise AI" />
             </div>
 
-            <article className={`report-card ${microEnabled ? 'reveal r1' : ''}`}>
+            <p className={`center-note disclaimer-top ${microEnabled ? 'reveal r1' : ''}`}>This is pattern mapping, not a diagnosis</p>
+
+            <article className={`report-card ${microEnabled ? 'reveal r2' : ''}`}>
               <small className="report-chip">
                 <img src={ASSETS.report} alt="" />
-                Avyan’s initial assessment report
+                Avyan's initial assessment report
               </small>
               <h2>{activeResult.headline}</h2>
-              <strong>What this means:</strong>
               <p>{activeResult.meaning}</p>
               {activeResult.extra && <p>{activeResult.extra}</p>}
             </article>
 
-            <p className={`center-note ${microEnabled ? 'reveal r2' : ''}`}>This is pattern mapping, not a diagnosis</p>
-
             {activeTier !== 'allGood' && (
               <>
-                <h3 className={microEnabled ? 'reveal r3' : ''}>3 things to try this week</h3>
+                <div className={microEnabled ? 'reveal r3' : ''}>
+                  <h3>3 things to try this week</h3>
+                  <p className="section-helper">These tasks are saved automatically. Pick these up whenever you're ready</p>
+                </div>
+                
                 <div className={`action-list ${microEnabled ? 'reveal r4' : ''}`}>
                   {activeResult.actions.map((item, idx) => (
                     <article key={item.title} className={`action-card ${microEnabled ? `reveal r${5 + idx}` : ''}`}>
-                      <strong>
-                        <img src={actionNumberIcons[idx] ?? ASSETS.one} alt="" />
-                        <span>{item.title}</span>
-                      </strong>
-                      <p>{item.body}</p>
+                      <div className="action-card-content">
+                        <strong>
+                          <img src={actionNumberIcons[idx] ?? ASSETS.one} alt="" />
+                          <span>{item.title}</span>
+                        </strong>
+                        <ul className="action-card-points">
+                          {(item.points ?? [item.body]).map((point) => (
+                            <li key={point}>{point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <button className="play-video-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M18.8906 12.846C18.5371 14.189 16.8667 15.138 13.5257 17.0361C10.296 18.8709 8.6812 19.7884 7.37983 19.4196C6.8418 19.2671 6.35159 18.9776 5.95624 18.5787C5 17.6139 5 15.7426 5 12C5 8.2574 5 6.3861 5.95624 5.42132C6.35159 5.02245 6.8418 4.73288 7.37983 4.58042C8.6812 4.21165 10.296 5.12907 13.5257 6.96393C16.8667 8.86197 18.5371 9.811 18.8906 11.154C19.0365 11.7084 19.0365 12.2916 18.8906 12.846Z"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        Play video
+                      </button>
                     </article>
                   ))}
                 </div>
 
-                <div className={`result-actions ${microEnabled ? 'reveal r8' : ''}`}>
-                  <button className={`secondary ${microEnabled ? 'cta-breathe' : ''}`}>
-                    <img src={ASSETS.doctor} alt="" />
-                    {activeResult.cta}
+                <div className={`discovery-ctAs ${microEnabled ? 'reveal r8' : ''}`}>
+                  <button className="discovery-cta">
+                    <div className="discovery-cta-content">
+                      <img src={ASSETS.doctorCta} alt="" />
+                      <div>
+                        <strong>Talk to a paediatric specialist</strong>
+                        <small>Find one near you</small>
+                      </div>
+                    </div>
+                    <span className="arrow" aria-hidden="true">
+                      <img src={ASSETS.chevron} alt="" />
+                    </span>
                   </button>
-                  <button className="inline-link">
-                    <img src={ASSETS.location} alt="" />
-                    {activeResult.link}
+                  <button className="discovery-cta">
+                    <div className="discovery-cta-content">
+                      <img src={ASSETS.brainCta} alt="" />
+                      <div>
+                        <strong>Find a development centre</strong>
+                        <small>Therapy centres in your area</small>
+                      </div>
+                    </div>
+                    <span className="arrow" aria-hidden="true">
+                      <img src={ASSETS.chevron} alt="" />
+                    </span>
                   </button>
                 </div>
               </>
@@ -804,9 +888,9 @@ function App() {
               <p>{empathyCopy.body}</p>
             </div>
 
-            <button className="text-link" onClick={goHome}>
-              Back to home
-            </button>
+            <footer className="result-footer">
+              Made with love by Babywise AI
+            </footer>
           </section>
         )}
 
