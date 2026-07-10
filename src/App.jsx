@@ -561,7 +561,7 @@ function App() {
         {screen === 'splash' && (
           <section className="screen splash fade-in">
             <div className="brand-lockup">
-              <img className="brand-logo" src={ASSETS.logo} alt="Babywise AI" />
+              <img className="brand-logo" src={ASSETS.logo} alt="Babywise" />
             </div>
             <p>Clarity when it matters most</p>
           </section>
@@ -652,7 +652,7 @@ function App() {
               </button>
             )}
 
-            <p className="powered">Powered by Babywise AI</p>
+            <p className="powered">Powered by Babywise</p>
           </section>
         )}
 
@@ -793,7 +793,7 @@ function App() {
         {screen === 'result' && (
           <section className="screen result slide-in">
             <div className="brand-lockup small">
-              <img className="brand-logo" src={ASSETS.logo} alt="Babywise AI" />
+              <img className="brand-logo" src={ASSETS.logo} alt="Babywise" />
             </div>
 
             <p className={`center-note disclaimer-top ${microEnabled ? 'reveal r1' : ''}`}>This is pattern mapping, not a diagnosis</p>
@@ -891,7 +891,7 @@ function App() {
             </div>
 
             <footer className="result-footer">
-              Made with love by Babywise AI
+              Made with love by Babywise
             </footer>
           </section>
         )}
